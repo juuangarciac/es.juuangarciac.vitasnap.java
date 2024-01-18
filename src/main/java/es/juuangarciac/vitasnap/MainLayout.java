@@ -3,6 +3,7 @@ package es.juuangarciac.vitasnap;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
@@ -19,6 +20,8 @@ import es.juuangarciac.vitasnap.user.views.UserHomeView;
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
 import java.util.Optional;
+
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -61,6 +64,11 @@ public class MainLayout extends AppLayout {
 
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
+
+        SideNavItem navItem = new SideNavItem("Cerrar sesión");
+        
+        nav.addItem(navItem);
+
         return nav;
     }
 
