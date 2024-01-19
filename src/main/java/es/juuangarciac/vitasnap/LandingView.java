@@ -35,9 +35,8 @@ public class LandingView extends VerticalLayout {
 
         // Este método se ejecuta después de que se ejecute el constructor y se inyecten las dependencias (appVersion)
 
-        add(new H1("Ingeniería Web"));
+        add(new H1("VitaSnap"));
         add(new H2("Curso 2023/2024"));
-        add(new H2("Hoy es 14/12/2023"));
         add(new H2("Bienvenid@ a la aplicación demo"));
         add(new H3("Versión: " + appVersion));
 
