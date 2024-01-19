@@ -10,6 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import es.juuangarciac.vitasnap.album.domain.Album;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +47,37 @@ public class User implements UserDetails {
 
 
     private String registerCode = "";
+
+    @OneToMany
+    private List<Album> albumsAsOwner;
+
+    @ManyToMany
+    private List<Album> albumsAsCollaborator;
+
+    
+    public List<Album> getAlbumsAsOwner() {
+        return albumsAsOwner;
+    }
+
+    public void setAlbumsAsOwner(List<Album> albumsAsOwner) {
+        this.albumsAsOwner = albumsAsOwner;
+    }
+
+    public void addAlbumAsOwner(Album album) {
+        this.albumsAsOwner.add(album);
+    }
+
+    public List<Album> getAlbumsAsCollaborator() {
+        return albumsAsCollaborator;
+    }
+
+    public void setAlbumsAsCollaborator(List<Album> albums) {
+        this.albumsAsCollaborator = albums;
+    }
+
+    public void addAlbumAsCollaborator(Album album) {
+        this.albumsAsCollaborator.add(album);
+    }
 
     public List<GrantedAuthority> getAuthorities() {
         return this.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))

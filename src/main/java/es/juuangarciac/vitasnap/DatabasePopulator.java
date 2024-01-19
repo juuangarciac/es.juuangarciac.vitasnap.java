@@ -1,7 +1,5 @@
 package es.juuangarciac.vitasnap;
 
-import com.github.javafaker.Faker;
-
 import es.juuangarciac.vitasnap.user.domain.Role;
 import es.juuangarciac.vitasnap.user.domain.User;
 import es.juuangarciac.vitasnap.user.services.UserManagementService;
