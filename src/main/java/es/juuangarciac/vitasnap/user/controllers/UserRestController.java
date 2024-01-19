@@ -44,10 +44,9 @@ public class UserRestController {
     }
 
     @PutMapping("/api/users/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable Integer id) {
-
-        // TODO
-        return newUser;
+    User replaceUser(@RequestBody User newUser, @PathVariable String id) {
+        return service.updateUser(newUser, id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
     }
 
     @DeleteMapping("/api/users/{id}")

@@ -46,6 +46,18 @@ public class UserManagementService implements UserDetailsService {
         }
     }
 
+    public Optional<User> updateUser(User newUser, String id) {
+        Optional<User> user = repository.findById(UUID.fromString(id));
+        if(user.isPresent()) {
+            user.get().setUsername(newUser.getUsername());
+            user.get().setEmail(newUser.getEmail());
+            //TO-DO
+            return user;
+        }else{
+            return Optional.empty();
+        }
+    }
+
     @Override
     @Transactional
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
