@@ -14,7 +14,7 @@ import es.juuangarciac.vitasnap.user.views.UserRegistrationView;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 
-@PageTitle("Inicio")
+@PageTitle("Home")
 @Route(value = "")
 @AnonymousAllowed
 public class LandingView extends VerticalLayout {
