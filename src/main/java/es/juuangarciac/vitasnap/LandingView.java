@@ -55,7 +55,7 @@ public class LandingView extends VerticalLayout {
 
     public Carousel createCarousel() {
         Slide slide1 = new Slide();
-        Image img = new Image("frontend/img/home/img_1.jpg", "Tres personas haciendo surf al atardecer");
+        Image img = new Image("frontend\\themes\\img_1.jpg", "Tres personas haciendo surf al atardecer");
         slide1.add(img);
 
         Carousel carousel = new Carousel(slide1)
