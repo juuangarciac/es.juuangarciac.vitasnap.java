@@ -17,21 +17,21 @@ import es.juuangarciac.vitasnap.post.services.PostManagmentService;
 public class ObjectMother {
     private static final Faker faker = new Faker();
 
-    public LocalDate generarFechaAleatoria() {
+    public static LocalDate generarFechaAleatoria() {
         long minDay = LocalDate.of(1970, 1, 1).toEpochDay();
         long maxDay = LocalDate.now().toEpochDay();
         long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
         return LocalDate.ofEpochDay(randomDay);
     }
 
-    public Post createPostTest() {
+    public static Post createPostTest() {
         
         Post testPost = new Post();
         testPost.setId(UUID.randomUUID());
-        testPost.setLocation(faker.address().fullAddress());
+        testPost.setLocation("Spain, Cadiz");
         testPost.setPublicationDate(generarFechaAleatoria());
         testPost.setPhotoCaption("Photo Caption");
-        
+        //TO-DO
         return testPost;
     }
 
