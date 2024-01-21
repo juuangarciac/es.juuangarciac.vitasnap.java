@@ -64,11 +64,6 @@ public class MainLayout extends AppLayout {
 
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
-
-        SideNavItem navItem = new SideNavItem("Cerrar sesión");
-        
-        nav.addItem(navItem);
-
         return nav;
     }
 
