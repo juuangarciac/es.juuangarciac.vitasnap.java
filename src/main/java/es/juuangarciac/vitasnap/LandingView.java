@@ -81,8 +81,8 @@ public class LandingView extends VerticalLayout {
                 () -> getClass().getResourceAsStream("/images/img_A1.jpg"));
 
         Image image1 = new Image(imageResource1, "Adventure");
-            image1.setWidth("100%");
-            image1.setHeight("100%");
+            image1.setWidthFull();
+            image1.setHeightFull();
             image1.getStyle().set("object-fit", "contain"); // Ajusta la imagen para que se mantenga su relación de aspecto
         slide1.add(image1);
 
@@ -92,21 +92,18 @@ public class LandingView extends VerticalLayout {
                 () -> getClass().getResourceAsStream("/images/img_A2.jpeg"));
 
         Image image2 = new Image(imageResource2, "Adventure");
-            image2.setWidth("100%");
-            image2.setHeight("100%");
+            image2.setWidthFull();
+            image2.setHeightFull();
             image2.getStyle().set("object-fit", "contain");
         slide2.add(image2);
 
-        //slide: 3
         Carousel carousel = new Carousel(slide1, slide2)
-        .withAutoProgress()
-        .withoutSwipe()
-        .withSlideDuration(4)
-        .withStartPosition(0);
-        
-        carousel.setWidth("60%");
-        carousel.setHeight("60%");
-
+            .withAutoProgress()
+            .withoutSwipe()
+            .withSlideDuration(2)
+            .withStartPosition(0);
+    
         return carousel;
     }
+    
 }
