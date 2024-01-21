@@ -30,7 +30,6 @@ export declare class ThemeEditor extends LitElement {
      * previously saved modifications
      */
     private effectiveTheme;
-    private markedAsUsed;
     private undoRedoListener;
     static get styles(): import("lit").CSSResult;
     protected firstUpdated(): void;

@@ -14,7 +14,7 @@ export declare class PropertyList extends LitElement {
     static get styles(): import("lit").CSSResult;
     metadata: ComponentMetadata;
     theme: ComponentTheme;
-    render(): import("lit").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
     private renderSection;
     private handleOpenCss;
     private renderPropertyEditor;

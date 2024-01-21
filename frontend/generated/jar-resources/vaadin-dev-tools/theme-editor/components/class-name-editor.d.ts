@@ -11,6 +11,6 @@ export declare class ClassNameEditor extends LitElement {
     private editedClassName;
     private invalid;
     protected update(changedProperties: PropertyValues): void;
-    render(): import("lit").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
     private handleInputChange;
 }

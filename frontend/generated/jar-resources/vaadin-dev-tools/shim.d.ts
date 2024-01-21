@@ -12,7 +12,7 @@ export declare class Shim extends LitElement {
         registry?: CustomElementRegistry | undefined;
     };
     static styles: import("lit").CSSResult[];
-    render(): import("lit").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
     onClick(e: MouseEvent): void;
     onMouseMove(e: MouseEvent): void;
     onKeyDown(e: KeyboardEvent): void;

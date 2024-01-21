@@ -9,6 +9,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -47,12 +49,12 @@ public class LandingView extends VerticalLayout {
     public void init() {
         Div container = new Div();
         container.getStyle().set("position", "relative");
-
+        container.add(createCarousel());
+        
         H1 title = new H1("VitaSnap");
-        title.getStyle().set("position", "absolute");
-        title.getStyle().set("top", "50%");
-        title.getStyle().set("left", "50%");
-
+        title.getStyle().set("position", "relative");
+        title.getStyle().set("z-index", "1");
+        
         Button button;
         if(!authenticatedUser.get().isPresent()) {
             button = new Button("Comienza ahora");
@@ -65,14 +67,24 @@ public class LandingView extends VerticalLayout {
                 UI.getCurrent().navigate("userhome");
             });
         }
-        button.getStyle().set("position", "absolute");
-        button.getStyle().set("bottom", "50%");
-        button.getStyle().set("right", "50%");
-
-        container.add(createCarousel(), title, button);
-        add(container);
-
+        
+        button.getStyle().set("position", "relative");
+        button.getStyle().set("z-index", "2");
+        
+        Div textDiv = new Div();
+            textDiv.getStyle().set("position", "absolute");
+            textDiv.getStyle().set("top", "65%");
+            textDiv.getStyle().set("right", "5%");
+            textDiv.getStyle().set("background", "white"); // Añade un fondo blanco al recuadro
+            textDiv.getStyle().set("border-radius", "15px"); // Añade bordes redondeados al recuadro
+            textDiv.getStyle().set("border", "2px solid #D3D3D3"); // Añade un borde gris claro al recuadro
+            textDiv.getStyle().set("padding", "15px"); // Añade un poco de espacio alrededor del texto y el botón
+        textDiv.add(title, button);
+    
+        add(container, textDiv);
     }
+    
+    
 
     public Carousel createCarousel() {
         //slide: 1
@@ -97,12 +109,9 @@ public class LandingView extends VerticalLayout {
             image2.getStyle().set("object-fit", "contain");
         slide2.add(image2);
 
-        Carousel carousel = new Carousel(slide1, slide2)
-            .withAutoProgress()
-            .withoutSwipe()
-            .withSlideDuration(2)
-            .withStartPosition(0);
-    
+        Carousel carousel = new Carousel(slide1, slide2);
+        carousel.setSizeFull();
+        
         return carousel;
     }
     

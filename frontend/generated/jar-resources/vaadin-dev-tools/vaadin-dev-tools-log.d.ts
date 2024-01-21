@@ -4,5 +4,5 @@ export declare class VaadinDevToolsLog extends LitElement {
     _devTools: VaadinDevTools;
     protected createRenderRoot(): Element | ShadowRoot;
     activate(): void;
-    render(): import("lit").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
 }

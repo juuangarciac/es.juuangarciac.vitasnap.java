@@ -12,7 +12,7 @@ export declare class ScopeSelector extends LitElement {
     metadata?: ComponentMetadata;
     private select?;
     protected update(changedProperties: PropertyValues): void;
-    render(): import("lit").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
     private selectRenderer;
     private handleValueChange;
 }
