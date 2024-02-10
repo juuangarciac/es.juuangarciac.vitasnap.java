@@ -1,7 +1,6 @@
 package es.juuangarciac.vitasnap.user.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-import es.juuangarciac.vitasnap.user.views.UserLoginView;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,7 +33,6 @@ public class SecurityConfiguration extends VaadinWebSecurity {
                 .requestMatchers(new AntPathRequestMatcher("/api/**")).hasRole("ADMIN"));
 
         super.configure(http);
-        setLoginView(http, UserLoginView.class);
     }
 
 }

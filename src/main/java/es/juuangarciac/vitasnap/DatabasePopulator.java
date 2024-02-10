@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.github.javafaker.Faker;
+
 @Component
 public class DatabasePopulator implements CommandLineRunner {
 
@@ -30,6 +32,19 @@ public class DatabasePopulator implements CommandLineRunner {
             userManagementService.registerUser(user);
             userManagementService.activateUser(user.getEmail(), user.getRegisterCode());
             System.out.println("Admin created");
+
+            /*List of Users*/
+            Faker faker = new Faker();
+            for(int i = 0; i < 10; ++i){
+                user = new User();
+                user.setUsername(faker.lordOfTheRings().character());
+                user.setPassword("user");
+                user.setEmail(user.getUsername() + "@gmail.es");
+                user.addRole(Role.USER);
+                userManagementService.registerUser(user);
+                userManagementService.activateUser(user.getEmail(), user.getRegisterCode());
+                System.out.println("User" + user.getUsername() + "created");
+            }
         }
     }
 

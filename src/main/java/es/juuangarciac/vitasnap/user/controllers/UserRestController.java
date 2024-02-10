@@ -31,7 +31,6 @@ public class UserRestController {
     @PostMapping("/api/users")
     void newUser(@RequestBody User newUser) {
         service.registerUser(newUser);
-
     }
 
     // Single item
