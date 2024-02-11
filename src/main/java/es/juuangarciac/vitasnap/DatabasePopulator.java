@@ -27,7 +27,7 @@ public class DatabasePopulator implements CommandLineRunner {
             User user = new User();
             user.setUsername("admin");
             user.setPassword("admin");
-            user.setEmail("admin@gmail.es");
+            user.setEmail("admin@gmail.com");
             user.addRole(Role.ADMIN);
             userManagementService.registerUser(user);
             userManagementService.activateUser(user.getEmail(), user.getRegisterCode());
@@ -35,11 +35,11 @@ public class DatabasePopulator implements CommandLineRunner {
 
             /*List of Users*/
             Faker faker = new Faker();
-            for(int i = 0; i < 10; ++i){
+            for(int i = 0; i < 3; ++i){
                 user = new User();
                 user.setUsername(faker.lordOfTheRings().character());
                 user.setPassword("user");
-                user.setEmail(user.getUsername() + "@gmail.es");
+                user.setEmail(user.getUsername() + "@gmail.com");
                 user.addRole(Role.USER);
                 userManagementService.registerUser(user);
                 userManagementService.activateUser(user.getEmail(), user.getRegisterCode());
