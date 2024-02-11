@@ -1,11 +1,10 @@
 package es.juuangarciac.vitasnap;
 
-import com.vaadin.flow.component.page.AppShellConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebApplication implements AppShellConfigurator {
+public class WebApplication{
 
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);

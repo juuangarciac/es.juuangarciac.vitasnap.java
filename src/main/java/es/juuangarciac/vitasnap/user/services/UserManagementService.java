@@ -46,6 +46,21 @@ public class UserManagementService implements UserDetailsService {
         }
     }
 
+    
+    public boolean registerTestUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRegisterCode(UUID.randomUUID().toString().substring(0, 5));
+        user.addRole(Role.USER);
+
+        try {
+            repository.save(user);
+            
+            return true;
+        } catch (DataIntegrityViolationException e) {
+            return false;
+        }
+    }
+
     public Optional<User> updateUser(User newUser, String id) {
         Optional<User> user = repository.findById(UUID.fromString(id));
         if(user.isPresent()) {
