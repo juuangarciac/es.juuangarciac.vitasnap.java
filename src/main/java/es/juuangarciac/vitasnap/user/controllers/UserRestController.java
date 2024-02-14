@@ -4,9 +4,7 @@ import es.juuangarciac.vitasnap.user.domain.User;
 import es.juuangarciac.vitasnap.user.services.UserManagementService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,9 +14,9 @@ import java.util.UUID;
 @RestController
 public class UserRestController {
 
+    @Autowired
     private final UserManagementService service;
 
-    @Autowired
     public UserRestController(UserManagementService service) {
         this.service = service;
     }
@@ -39,13 +37,13 @@ public class UserRestController {
     User one(@PathVariable String id) {
         // TODO deal with invalid UUID
         return service.loadUserById(UUID.fromString(id))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @PutMapping("/api/users/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable String id) {
         return service.updateUser(newUser, id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @DeleteMapping("/api/users/{id}")
