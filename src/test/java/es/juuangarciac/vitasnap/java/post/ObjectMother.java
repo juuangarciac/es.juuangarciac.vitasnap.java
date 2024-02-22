@@ -1,21 +1,12 @@
 package es.juuangarciac.vitasnap.java.post;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-
-import com.github.javafaker.Faker;
-
 import es.juuangarciac.vitasnap.post.domain.Post;
-import es.juuangarciac.vitasnap.post.services.PostManagmentService;
 
 public class ObjectMother {
-    private static final Faker faker = new Faker();
 
     public static LocalDate generarFechaAleatoria() {
         long minDay = LocalDate.of(1970, 1, 1).toEpochDay();

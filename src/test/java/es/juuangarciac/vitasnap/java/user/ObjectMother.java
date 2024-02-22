@@ -1,5 +1,7 @@
 package es.juuangarciac.vitasnap.java.user;
 
+import java.util.UUID;
+
 import com.github.javafaker.Faker;
 import es.juuangarciac.vitasnap.user.domain.User;
 
@@ -10,6 +12,7 @@ public class ObjectMother {
 
     public static User createTestUser() {
         User testUser = new User();
+        testUser.setId(UUID.randomUUID());
         testUser.setUsername(faker.name().username());
         testUser.setEmail(faker.internet().emailAddress());
         testUser.setPassword("password");

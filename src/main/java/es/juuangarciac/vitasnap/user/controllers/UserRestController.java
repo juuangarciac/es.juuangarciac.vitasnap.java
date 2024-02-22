@@ -4,14 +4,23 @@ import es.juuangarciac.vitasnap.user.domain.User;
 import es.juuangarciac.vitasnap.user.services.UserManagementService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 /**
  * 'UserRestController'. Permite responder peticiones HTTP que se hagan a vitasnap.
+ *  Arquitectura: REST
  */
 @RestController
+@RequestMapping("/api/users")
+@ResponseStatus(HttpStatus.OK)
 public class UserRestController {
 
     @Autowired
@@ -21,38 +30,64 @@ public class UserRestController {
         this.service = service;
     }
 
-    @GetMapping("/api/users")
-    public List<User> all() {
-        return service.loadActiveUsers();
-    }
+    @GetMapping
+    public CollectionModel<EntityModel<User>> all() {
+        List<EntityModel<User>> users = service.loadActiveUsers().stream()
+            .map(
+                user -> EntityModel.of(user,
+                    linkTo(methodOn(UserRestController.class).one(user.getId().toString())).withSelfRel(),
+                    linkTo(methodOn(UserRestController.class).all()).withRel("users")))
+            .collect(Collectors.toList());
 
-    @PostMapping("/api/users")
-    void newUser(@RequestBody User newUser) {
+        return CollectionModel.of(users, linkTo(methodOn(UserRestController.class).all()).withSelfRel());
+    }        
+
+    @PostMapping
+    public void newUser(@RequestBody User newUser) {
         service.registerUser(newUser);
     }
 
     // Single item
 
-    @GetMapping("/api/users/{id}")
-    EntityModel<User> one(@PathVariable String id) {
-        // TODO deal with invalid UUID
-        User user = service.loadUserById(UUID.fromString(id))
-                .orElseThrow(() -> new UserNotFoundException(id));
-        
-        return EntityModel.of(user, 
-            linkTo(methodOn(UserRestController.class).one(id)).withSelfRel(),
-            linkTo(methodOn(UserRestController.class).all).withSelfRel("users"),
-        )
+    @GetMapping("/{id}")
+    public EntityModel<User> one(@PathVariable String id) {
+
+        User user = new User();
+        // Deal with invalid UUID
+        try{
+            UUID userId = UUID.fromString(id);
+            user = service.loadUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException(id)); 
+            
+            return EntityModel.of(user, 
+                linkTo(methodOn(UserRestController.class).one(id)).withSelfRel(),
+                linkTo(methodOn(UserRestController.class).all()).withRel("users")
+            );
+
+        }catch(IllegalArgumentException e){
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid UUID");
+            return EntityModel.of(user);
+        }
     }
 
-    @PutMapping("/api/users/{id}")
+    @PutMapping("/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable String id) {
-        return service.updateUser(newUser, id)
+        try{
+            UUID.fromString(id);
+            return service.updateUser(newUser, id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+        }catch(IllegalArgumentException e){
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid UUID");
+            return new User();
+        }
     }
 
-    @DeleteMapping("/api/users/{id}")
-    void deleteUser(@PathVariable Integer id) {
-        // TODO
+    @DeleteMapping("/{id}")
+    void deleteUser(@PathVariable String id) {
+        try{
+            service.delete(UUID.fromString(id));
+        }catch(IllegalArgumentException e){ 
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid UUID");
+        }
     }
 }

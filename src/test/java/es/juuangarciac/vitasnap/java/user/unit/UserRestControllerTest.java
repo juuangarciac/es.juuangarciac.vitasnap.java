@@ -4,11 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 
 import es.juuangarciac.vitasnap.java.user.ObjectMother;
 import es.juuangarciac.vitasnap.user.controllers.UserRestController;
@@ -36,9 +39,20 @@ public class UserRestControllerTest {
 
         // When
         // the All method of the controller is invoked
-        List<User> result = controller.all();
+        CollectionModel<EntityModel<User>> result = controller.all();
 
         // Then
-        assertThat(result.contains(testUser));
+        assertThat(result.getContent().contains((Object)testUser));
+    }
+
+    @Test
+    public void shouldReturnUser() {
+        // Given
+        User testUser = ObjectMother.createTestUser();
+        given(userManagementService.loadUserById(testUser.getId())).willReturn(Optional.of(testUser));
+        // When
+        EntityModel<User> result = controller.one(testUser.getId().toString());
+        // Then
+        assertThat(testUser.equals(result.getContent()));
     }
 }

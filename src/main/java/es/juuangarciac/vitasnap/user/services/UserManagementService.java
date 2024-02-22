@@ -3,7 +3,6 @@ package es.juuangarciac.vitasnap.user.services;
 import es.juuangarciac.vitasnap.user.domain.Role;
 import es.juuangarciac.vitasnap.user.domain.User;
 import es.juuangarciac.vitasnap.user.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +23,6 @@ public class UserManagementService implements UserDetailsService {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public UserManagementService(UserRepository repository, EmailService emailService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.emailService = emailService;
@@ -84,7 +82,6 @@ public class UserManagementService implements UserDetailsService {
         }
     }
 
-
     public boolean activateUser(String email, String registerCode) {
 
         Optional<User> user = repository.findByEmail(email);
@@ -100,7 +97,6 @@ public class UserManagementService implements UserDetailsService {
 
     }
 
-
     public Optional<User> loadUserById(UUID userId) {
         return repository.findById(userId);
     }
@@ -109,11 +105,9 @@ public class UserManagementService implements UserDetailsService {
         return repository.findByActiveTrue();
     }
 
-    public void delete(User testUser) {
-        repository.delete(testUser);
-
+    public void delete(UUID userId) {
+        repository.deleteById(userId);
     }
-
 
     public int count() {
         return (int) repository.count();

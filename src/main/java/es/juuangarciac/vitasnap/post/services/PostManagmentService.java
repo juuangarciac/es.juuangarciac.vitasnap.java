@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ public class PostManagmentService {
 
     private final PostRepository postRepository;
 
-    @Autowired
     public PostManagmentService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
@@ -47,6 +45,10 @@ public class PostManagmentService {
         } else {
             return Optional.empty();
         }
+    }
+
+    public void delete(UUID id){
+        postRepository.deleteById(id);
     }
 
 }
