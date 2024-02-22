@@ -34,10 +34,15 @@ public class UserRestController {
     // Single item
 
     @GetMapping("/api/users/{id}")
-    User one(@PathVariable String id) {
+    EntityModel<User> one(@PathVariable String id) {
         // TODO deal with invalid UUID
-        return service.loadUserById(UUID.fromString(id))
+        User user = service.loadUserById(UUID.fromString(id))
                 .orElseThrow(() -> new UserNotFoundException(id));
+        
+        return EntityModel.of(user, 
+            linkTo(methodOn(UserRestController.class).one(id)).withSelfRel(),
+            linkTo(methodOn(UserRestController.class).all).withSelfRel("users"),
+        )
     }
 
     @PutMapping("/api/users/{id}")
