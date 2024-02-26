@@ -1,4 +1,4 @@
-package es.juuangarciac.vitasnap.user.security;
+package es.juuangarciac.vitasnap.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

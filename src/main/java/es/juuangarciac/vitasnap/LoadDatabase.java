@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import es.juuangarciac.vitasnap.user.domain.Role;
 import es.juuangarciac.vitasnap.user.domain.User;
 import es.juuangarciac.vitasnap.user.repositories.UserRepository;
-import es.juuangarciac.vitasnap.user.security.SecurityConfiguration;
+import es.juuangarciac.vitasnap.security.SecurityConfiguration;
 
 @Configuration
 class LoadDatabase {
