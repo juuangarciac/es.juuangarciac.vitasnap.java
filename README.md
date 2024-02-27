@@ -44,7 +44,6 @@ Una vez que se ha verificado la autenticación, las solicitudes se autorizan seg
 
 ## Arquitectura de la API
 
-
 ## EndPoints
 1. `/api/users`
     - `/api/users/{id}` *single item*.

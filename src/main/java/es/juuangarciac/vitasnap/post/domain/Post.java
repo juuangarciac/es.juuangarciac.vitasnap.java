@@ -6,6 +6,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import es.juuangarciac.vitasnap.album.domain.Album;
+import es.juuangarciac.vitasnap.user.domain.User;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -31,6 +32,17 @@ public class Post {
 
     @ManyToOne
     private Album album;
+
+    @ManyToOne
+    private User owner;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public Album getAlbum() {
         return album;
