@@ -18,6 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthenticationFilter extends GenericFilterBean {
 
+    /*
+     * It's called when a request is intercepted
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
