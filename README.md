@@ -38,7 +38,7 @@ La API debe permitir la ejecución de operaciones **CRUD** (Create,  Read, Updat
 
 Nuestra API utiliza **Spring Security** para implementar un mecanismo de autenticación basado en **claves API**. Cuando un cliente realiza una solicitud a un punto final protegido, nuestro filtro personalizado `AuthenticationFilter` intercepta la solicitud y extrae la clave API del encabezado de la solicitud. Luego, la clave API se valida para garantizar que sea válida y autorizada para acceder a los recursos protegidos. Si la clave API es válida, se permite que la solicitud continúe y se procese el recurso solicitado. En caso de que la clave API no sea válida o no se proporcione, se devuelve un error de autenticación `401 Unauthorized`.
 
-[Autenticación mediante claves API](.\img\resources\APIKeyAuthentication.png)
+[Autenticación mediante claves API](img/resources/APIKeyAuthentication.png)
 
 Una vez que se ha verificado la autenticación, las solicitudes se autorizan según los permisos y roles definidos en nuestra configuración de Spring Security.
 
