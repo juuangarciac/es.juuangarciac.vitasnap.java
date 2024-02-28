@@ -43,8 +43,17 @@ public class UserRestController {
     }        
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public void createUser(@RequestBody User newUser) {
+    public EntityModel<User> createUser(@RequestBody User newUser) {
+        
+        if(service.existUsername(newUser.getUsername())) {
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "username is already taken");
+            return EntityModel.of(new User());
+        }
         service.registerUser(newUser);
+        return EntityModel.of(newUser, 
+            linkTo(methodOn(UserRestController.class).one(service.loadUserByUsername(newUser.getUsername()).getId().toString())).withSelfRel(),
+            linkTo(methodOn(UserRestController.class).all()).withRel("users")
+        );
     }
 
     // Single item
@@ -70,7 +79,7 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     User updateUser(@RequestBody User newUser, @PathVariable String id) {
         try{
             UUID.fromString(id);

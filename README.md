@@ -53,5 +53,8 @@ Una vez que se ha verificado la autenticación, las solicitudes se autorizan seg
     - `/api/albums/{id}` *single item*.
 
 ## Colaboradores
+[Juan García Candón](https://github.com/juuangarciac)
+
 
 ## Referencias
+[Building REST services with Spring](https://spring.io/guides/tutorials/rest)

@@ -6,14 +6,14 @@ class List extends React.Component {
         super(props);
         this.state = { 
             datosCargados:false,
-            employers:[]
+            users:[]
         }
     }
     state = {  }
 
-    loadData(){
-        fetch("http://localhost:5000/api/users", {
-            method: 'POST',
+    loadData() {
+        fetch("/api/users", {
+            method: 'GET',
             mode: 'cors',
             headers: {
                 "X-API-KEY": "Baeldung"
@@ -21,11 +21,18 @@ class List extends React.Component {
         })
         .then(response => response.json())
         .then((data) => {
-            console.log(data)
-            this.setState({datosCargados:true, employers:data})
+            console.log("Data received from API:", data); // Log the received data
+    
+            // Check if _embedded object exists and contains user data
+            const users = data._embedded && data._embedded.userList ? data._embedded.userList : [];
+    
+            this.setState({ datosCargados: true, users: users });
         })
-        .catch(console.log)
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
     }
+    
 
     componentDidMount(){
         // Consumir datos API
@@ -33,17 +40,17 @@ class List extends React.Component {
     }
 
     render() { 
-        const{datosCargados, employers} = this.state;
+        const{datosCargados, users} = this.state;
 
         if(!datosCargados){return (<div>Cargando...</div>);}
         else{
             return (
                 <div class="card">
                     <div class="card-header">
-                        <Link type="button" className="btn btn-success" to={"/create"}>Agregar Empleado</Link>
+                        <Link type="button" className="btn btn-success" to={"/create"}>Agregar Usuario</Link>
                     </div>
                     <div class="card-body">
-                    <h4>Empleados</h4>
+                    <h4>Usuarios</h4>
                     <table className="table">
                         <thead>
                             <tr>
@@ -55,12 +62,12 @@ class List extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                employers.map(
-                                    (empleado)=>(
-                                            <tr key={empleado.id}>
-                                            <td>{empleado.id}</td>
-                                            <td>{empleado.name}</td>
-                                            <td>{empleado.email}</td>
+                                users.map(
+                                    (user)=>(
+                                            <tr key={user.id}>
+                                            <td>{user.id}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
                                             <td>
                                                 <div className="btn-group" role="group" aria-label="">
                                                     <Link type="button" className="btn btn-warning" to={"/update"}>Editar</Link>

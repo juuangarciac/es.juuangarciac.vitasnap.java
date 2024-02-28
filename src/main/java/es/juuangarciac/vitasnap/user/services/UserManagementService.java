@@ -36,8 +36,8 @@ public class UserManagementService implements UserDetailsService {
         user.addRole(Role.USER);
 
         try {
-            repository.save(user);
             emailService.sendRegistrationEmail(user);
+            repository.save(user);
             return true;
         } catch (DataIntegrityViolationException e) {
             return false;
@@ -95,6 +95,11 @@ public class UserManagementService implements UserDetailsService {
             return false;
         }
 
+    }
+
+    public boolean existUsername(String username){
+        if(repository.findByUsername(username).isPresent()) return true;
+        else    return false;
     }
 
     public Optional<User> loadUserById(UUID userId) {
