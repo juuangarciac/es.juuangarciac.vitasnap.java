@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users")
 @ResponseStatus(HttpStatus.OK)
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserRestController {
 
     @Autowired
@@ -43,8 +42,8 @@ public class UserRestController {
         return CollectionModel.of(users, linkTo(methodOn(UserRestController.class).all()).withSelfRel());
     }        
 
-    @PostMapping
-    public void newUser(@RequestBody User newUser) {
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public void createUser(@RequestBody User newUser) {
         service.registerUser(newUser);
     }
 
@@ -72,7 +71,7 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable String id) {
+    User updateUser(@RequestBody User newUser, @PathVariable String id) {
         try{
             UUID.fromString(id);
             return service.updateUser(newUser, id)

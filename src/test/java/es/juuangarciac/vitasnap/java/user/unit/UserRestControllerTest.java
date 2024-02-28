@@ -55,4 +55,17 @@ public class UserRestControllerTest {
         // Then
         assertThat(testUser.equals(result.getContent()));
     }
+
+    @Test
+    public void shouldCreateNewUser() {
+        // Given
+        User testUser = ObjectMother.createTestUser();
+        given(userManagementService.loadActiveUsers()).willReturn(List.of(testUser));
+        //When
+        controller.createUser(testUser);
+        //Then
+        System.out.println(userManagementService.count());
+        assertThat(userManagementService.loadActiveUsers().contains(testUser));
+    }
+
 }
