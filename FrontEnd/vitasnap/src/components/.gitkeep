@@ -1,0 +1,4 @@
+Componente componentes de las paginas que son Reutilizables.
+
+Definicion: 
+Los componentes de React son bloques de creación que se usan para crear la aplicación1. En React, los componentes se crean usando funciones o clases23. Los componentes son independientes y reutilizables

@@ -1,0 +1,9 @@
+hooks   Software que detecta si se han producido cambios en el state de un componente
+        y en caso de que si, notifica a react para que actualize el componente.
+
+        No se pueden usar en clases ni en cualquier otra parte del código fuera de un componente.
+
+        Los hooks deben llamarse en el nivel superior de la función de componente. No debemos llamar a un hook dentro de un ciclo, un condicional ni en cualquier otra parte del código que se ejecute más de una vez.
+
+Se usa para no hacer llamadas constantes a la BD, si se han realizado cambios
+se llama a la BD si no pues no se llama.
