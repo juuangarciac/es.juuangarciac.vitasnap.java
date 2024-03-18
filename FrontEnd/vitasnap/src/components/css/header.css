@@ -1,0 +1,17 @@
+/*Estilos Cabecera */
+.header{
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.header .title {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+
+
+    margin-top: 10px;
+    margin-left: 10px;
+}
